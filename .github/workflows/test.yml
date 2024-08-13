@@ -1,21 +1,26 @@
 name: Test
 
 on: [workflow_dispatch]
- 
-jobs:
-  job_ex:
 
+jobs:
+  job:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [20.0]
+        node-version: [14.x]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup Node
+      uses: actions/setup-node@v4
       with:
-        node-version: 20.0
-    - run: npm install jest
-    - run: npm test
+        node-version: '20'
+
+    - name: Install dependencies
+      run: npm install jest
+
+    - name: Run tests
+      run: npx jest
